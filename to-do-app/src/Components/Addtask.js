@@ -18,14 +18,14 @@ function Addtask({onAddTask}) {
         }
     }
     return (
-        <div>
+        <div className="input-group">
             <input type="text" 
-                id="taskInput" 
+                className="task-input" 
                 placeholder="Please enter to-do task" 
                 value={currentTask}
                 onChange={handleTaskChange}/>
             <br />
-            <button onClick={AddTask}>Add Task</button>
+            <button className="add-task-button" onClick={AddTask}>Add Task</button> 
         </div>
     )
 }

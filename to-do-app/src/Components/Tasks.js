@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Addtask from './Addtask'
+import TaskItem from "./TaskItem";
 
 class Tasks extends Component {
     constructor(props) {
@@ -14,21 +15,31 @@ class Tasks extends Component {
             tasks : [...prevState.tasks, newTask]
         }));
     };
+    handleEditTask = (index, updatedTask) => {
+        const updatedTasks = [...this.state.tasks];
+        updatedTasks[index] = updatedTask;
+        this.setState({
+            tasks : updatedTasks
+        });
+    }
     render() {        
         //const {currentTask, tasks} = this.state      
         return (
-            <div className="task">                 
-                <Addtask onAddTask ={this.handleNewTask}/>
+            <div>                 
+                <Addtask onAddTask ={this.handleNewTask}/> 
                 <h3>TO-DO List</h3>
                 {this.state.tasks.length === 0 ? 
-                    (<li>Please add tasks</li>) : 
-                    (<div>
-                        <ul>
-                            {this.state.tasks.map((task, index) => (
-                                <li key= {index}>{task}</li>
-                            ))}
-                        </ul>
-                    </div>)
+                    (<p>No tasks yet! Start by adding one above.</p>) : 
+                    (<ul className="task-list">
+                        {this.state.tasks.map((task, index) => (
+                            <TaskItem 
+                                key ={index}
+                                index ={index}
+                                task ={task}
+                                onEditTask = {this.handleEditTask}
+                            />
+                        ))}
+                    </ul>)
                 }
             </div>
         )
